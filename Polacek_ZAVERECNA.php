@@ -1,6 +1,6 @@
 <?php
 // Seznam žáků
-$zaci = [
+$students = [
     "Dominik Poláček",
     "Daniel Opustil",
     "Kristian Ondráček",
