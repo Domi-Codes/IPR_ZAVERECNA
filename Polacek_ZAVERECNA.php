@@ -1,6 +1,6 @@
 <?php
-// Seznam žáků z dokumentu
-$students = [
+// Seznam žáků
+$zaci = [
     "Dominik Poláček",
     "Daniel Opustil",
     "Kristian Ondráček",
