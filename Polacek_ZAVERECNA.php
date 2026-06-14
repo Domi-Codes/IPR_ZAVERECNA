@@ -1,10 +1,3 @@
-<style>
-.zak        {border: 3px solid black; border-radius: 10px; padding: 10px; font-size: 150%; text-decoration: none; background: rgba(0,0,0,0.15); color: black; margin: 5px; display: inline-block;}
-.vyvolany   {background: rgba(255,0,0,0.40); color: white;}
-.aktualni   {background: rgba(0,150,0,0.60); color: white; border: 3px solid green;}
-p           {margin: 20px}
-</style>
-
 <?php
 // SEZNAM ŽÁKŮ
 $students = [
@@ -31,7 +24,7 @@ $students = [
 "Vojtěch Vitvar"
 ];
 
-echo"<h1>Losování žáka</h1>";
+$aktualni = "";
 
 // KONTROLA SOUBORU
 if (!file_exists("data.txt"))
@@ -56,7 +49,6 @@ foreach ($students as $s)
     }
 
 // LOSOVÁNÍ
-$aktualni = "";
 if (!empty($_GET["losuj"]))
     {
         if (count($zbyvajici) > 0)
@@ -64,41 +56,70 @@ if (!empty($_GET["losuj"]))
                 $nahoda = rand(0, count($zbyvajici)-1);
                 $aktualni = $zbyvajici[$nahoda];
 
-                // ULOŽENÍ DO SOUBORU
                 $soubor = fopen("data.txt","a");
                 fwrite($soubor, $aktualni.PHP_EOL);
                 fclose($soubor);
 
-                header("Location: index.php?last=$aktualni");
-            }
-        else
-            {
-                echo"<h2>Všichni žáci už byli vyvoláni</h2>";
+                // po zápisu znovu načteme historii a zbyvající
+                $a = file("data.txt");
+                $vyvolani = [];
+                foreach ($a as $radek)
+                    {
+                        $radek = trim($radek);
+                        if (!empty($radek))
+                            {$vyvolani[] = $radek;}
+                    }
+
+                $zbyvajici = [];
+                foreach ($students as $s)
+                    {
+                        if (!in_array($s, $vyvolani))
+                            {$zbyvajici[] = $s;}
+                    }
             }
     }
 
 // RESET
 if (!empty($_GET["reset"]))
     {
-        fopen("data.txt","w");
-        header("Location: index.php");
+        $soubor = fopen("data.txt","w");
+        fclose($soubor);
+        $vyvolani = [];
+        $zbyvajici = $students;
+        $aktualni = "";
     }
+?>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Losování žáka</title>
+<style>
+.zak        {border: 3px solid black; border-radius: 10px; padding: 10px; font-size: 150%; text-decoration: none; background: rgba(0,0,0,0.15); color: black; margin: 5px; display: inline-block;}
+.vyvolany   {background: rgba(255,0,0,0.40); color: white;}
+.aktualni   {background: rgba(0,150,0,0.60); color: white; border: 3px solid green;}
+p           {margin: 20px}
+</style>
+</head>
+<body>
 
-// AKTUÁLNÍ VYLOSOVANÝ
-if (!empty($_GET["last"]))
-    {$aktualni = $_GET["last"];}
+<h1>Losování žáka</h1>
 
-// FORMULÁŘE
-echo"
 <p>
-<a class='zak' href='?losuj=1'>🎲 Losuj žáka</a>
-<a class='zak' href='?reset=1'>Reset</a>
+    <a class="zak" href="?losuj=1">🎲 Losuj žáka</a>
+    <a class="zak" href="?reset=1">Reset</a>
 </p>
-";
 
-// VÝPIS ŽÁKŮ
-echo"<h2>Seznam žáků:</h2>";
+<?php
+if (!empty($aktualni))
+    {
+        echo"<h2>Vylosovaný žák: $aktualni</h2>";
+    }
+?>
 
+<h2>Seznam žáků:</h2>
+
+<?php
 foreach ($students as $s)
     {
         $trida = "zak";
@@ -111,3 +132,6 @@ foreach ($students as $s)
         echo"<a class='$trida'>$s</a>";
     }
 ?>
+
+</body>
+</html>
