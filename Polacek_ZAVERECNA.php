@@ -1,6 +1,6 @@
 <?php
 // Seznam žáků
-$students = [
+$zaci = [
     "Dominik Poláček",
     "Daniel Opustil",
     "Kristian Ondráček",
@@ -31,7 +31,7 @@ $historyFile = "history.txt";
 $called = file_exists($historyFile) ? file($historyFile, FILE_IGNORE_NEW_LINES) : [];
 
 // Zbývající žáci
-$remaining = array_diff($students, $called);
+$remaining = array_diff($zaci, $called);
 
 // Losování
 $selected = null;
@@ -114,7 +114,7 @@ if (isset($_POST['reset'])) {
 <h1>Losování žáka k tabuli</h1>
 
 <form method="post">
-    <button class="losuj" name="losuj">🎲 Losuj žáka</button>
+    <button class="losuj" name="losuj">Losuj žáka</button>
     <button class="reset" name="reset">Resetovat</button>
 </form>
 
