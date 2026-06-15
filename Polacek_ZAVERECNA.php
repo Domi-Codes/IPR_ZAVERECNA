@@ -1,4 +1,11 @@
 <?php
+/*
+
+PROSIM - VELMI AKUTNE POTREBUJI NEJHUR DVOJKU
+S pozdravem a přáním hezkého dne,
+Dominik Poláček
+
+*/
 // SEZNAM ŽÁKŮ
 $studenti = [
 "Dominik Poláček",
@@ -28,7 +35,9 @@ $aktualni = "";
 
 // KONTROLA SOUBORU
 if (!file_exists("data.txt"))
-    {fopen("data.txt","w");}
+    {
+        fopen("data.txt","w");
+    }
 
 // NAČTENÍ HISTORIE
 $a = file("data.txt");
@@ -37,7 +46,9 @@ foreach ($a as $radek)
     {
         $radek = trim($radek);
         if (!empty($radek))
-            {$vyvolani[] = $radek;}
+            {
+                $vyvolani[] = $radek;
+            }
     }
 
 // ZJIŠTĚNÍ ZBÝVAJÍCÍCH
@@ -45,7 +56,9 @@ $zbyvajici = [];
 foreach ($studenti as $s)
     {
         if (!in_array($s, $vyvolani))
-            {$zbyvajici[] = $s;}
+            {
+                $zbyvajici[] = $s;
+            }
     }
 
 // LOSOVÁNÍ
@@ -67,14 +80,18 @@ if (!empty($_GET["losuj"]))
                     {
                         $radek = trim($radek);
                         if (!empty($radek))
-                            {$vyvolani[] = $radek;}
+                            {
+                                $vyvolani[] = $radek;
+                            }
                     }
 
                 $zbyvajici = [];
                 foreach ($studenti as $s)
                     {
                         if (!in_array($s, $vyvolani))
-                            {$zbyvajici[] = $s;}
+                            {
+                                $zbyvajici[] = $s;
+                            }
                     }
             }
     }
@@ -93,7 +110,7 @@ if (!empty($_GET["reset"]))
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<title>Losování žáka</title>
+<title>Losovacka</title>
 <style>
 .zak        {border: 3px solid black; border-radius: 10px; padding: 10px; font-size: 150%; text-decoration: none; background: rgba(0,0,0,0.15); color: black; margin: 5px; display: inline-block;}
 .vyvolany   {background: rgba(255,0,0,0.40); color: white;}
@@ -107,7 +124,7 @@ p           {margin: 20px}
 
 <p>
     <a class="zak" href="?losuj=1">Losuj žáka</a>
-    <a class="zak" href="?reset=1">Reset</a>
+    <a class="zak" href="?reset=1">Resetuj</a>
 </p>
 
 <?php
@@ -125,9 +142,13 @@ foreach ($studenti as $s)
         $trida = "zak";
 
         if ($s == $aktualni)
-            {$trida .= " aktualni";}
+            {
+                $trida .= " aktualni";
+            }
         else if (in_array($s, $vyvolani))
-            {$trida .= " vyvolany";}
+            {
+                $trida .= " vyvolany";
+            }
 
         echo"<a class='$trida'>$s</a>";
     }
