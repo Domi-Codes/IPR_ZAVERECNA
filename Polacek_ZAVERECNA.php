@@ -1,6 +1,6 @@
 <?php
 // SEZNAM ŽÁKŮ
-$students = [
+$studenti = [
 "Dominik Poláček",
 "Daniel Opustil",
 "Kristian Ondráček",
@@ -42,7 +42,7 @@ foreach ($a as $radek)
 
 // ZJIŠTĚNÍ ZBÝVAJÍCÍCH
 $zbyvajici = [];
-foreach ($students as $s)
+foreach ($studenti as $s)
     {
         if (!in_array($s, $vyvolani))
             {$zbyvajici[] = $s;}
@@ -71,7 +71,7 @@ if (!empty($_GET["losuj"]))
                     }
 
                 $zbyvajici = [];
-                foreach ($students as $s)
+                foreach ($studenti as $s)
                     {
                         if (!in_array($s, $vyvolani))
                             {$zbyvajici[] = $s;}
@@ -85,7 +85,7 @@ if (!empty($_GET["reset"]))
         $soubor = fopen("data.txt","w");
         fclose($soubor);
         $vyvolani = [];
-        $zbyvajici = $students;
+        $zbyvajici = $studenti;
         $aktualni = "";
     }
 ?>
@@ -106,7 +106,7 @@ p           {margin: 20px}
 <h1>Losování žáka</h1>
 
 <p>
-    <a class="zak" href="?losuj=1">🎲 Losuj žáka</a>
+    <a class="zak" href="?losuj=1">Losuj žáka</a>
     <a class="zak" href="?reset=1">Reset</a>
 </p>
 
@@ -120,7 +120,7 @@ if (!empty($aktualni))
 <h2>Seznam žáků:</h2>
 
 <?php
-foreach ($students as $s)
+foreach ($studenti as $s)
     {
         $trida = "zak";
 
