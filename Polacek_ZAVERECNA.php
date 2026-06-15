@@ -1,7 +1,7 @@
 <?php
 /*
 
-PROSIM - VELMI AKUTNE POTREBUJI NEJHUR DVOJKU
+PROSIM - SNAZIM SE OPRAVIT CELKOVOU ZNAMKU NA DVOJKU
 S pozdravem a přáním hezkého dne,
 Dominik Poláček
 
